@@ -3,17 +3,25 @@
 using namespace std;
 
 void tarea1();
+void tarea2();
+
 int main()
 {
     int excercise;
 
     cout << "elija la tarea a ver: " << endl;
-    cout << "1. Tarea 1" << endl;
+    cout << "1. Tarea 1: ejercicios" << endl;
+    cout << "2. Tarea 2: piedra, papel o tijera" << endl;
+
     cin >> excercise;
     switch (excercise) {
     case 1:
         system("cls");
         tarea1();
+        break;
+    case 2:
+        system("cls");
+        tarea2();
         break;
     }
 }
@@ -38,25 +46,25 @@ void tarea1() {
     switch (seleccion) {
     case 1:
         //determinar si un numero es positivo o negativo
-        cout << "ingrese un numero para ver si es positivo o negativo: ";
-        cin >> n;
-        if (n > 0) {
-            cout << "el numero " << n << " es positivo" << endl;
-        }
-        else if (n < 0) {
-            cout << "el numeor " << n << " es negativo" << endl;
-        }
-        else {
-            cout << "el numero cero no es positivo ni negativo" << endl;
-        }
-        system("pause");
-        system("cls");
-        break;
+cout << "ingrese un numero para ver si es positivo o negativo: ";
+cin >> n;
+if (n > 0) {
+    cout << "el numero " << n << " es positivo" << endl;
+}
+else if (n < 0) {
+    cout << "el numeor " << n << " es negativo" << endl;
+}
+else {
+    cout << "el numero cero no es positivo ni negativo" << endl;
+}
+system("pause");
+system("cls");
+break;
     case 2:
         //suma de digitos de numero con dos digitos
         do {
-        cout << "ingrese un numero de dos digitos: ";
-        cin >> n;
+            cout << "ingrese un numero de dos digitos: ";
+            cin >> n;
         } while (n < 10);
         while (n > 0) {
             sum = sum + n % 10; //el modulo obtiene la unidad
@@ -72,7 +80,7 @@ void tarea1() {
             cout << "ingrese un numero de dos digitos para ver si alguno es par: ";
             cin >> n;
         } while (n < 10);
-        
+
         while (n > 0) {
             if (n % 2 == 0) {
                 cout << n % 10 << " es par" << endl;
@@ -108,7 +116,7 @@ void tarea1() {
         }
         else if (c < a and c < b) {
             cout << "el numero mas pequeno es " << c << endl;
-        }   
+        }
         break;
     case 5:
         //numeros entre rango maximo y rango minimo
@@ -127,4 +135,87 @@ void tarea1() {
         }
         break;
     }
+}
+
+void tarea2() {
+    int playscore = 0;
+    int playerscore = 0;
+    int play;
+    string jugar;
+    do {
+        int playscore = 0;
+        int playerscore = 0;
+        do{
+            srand(time(NULL));
+            int randnum = rand();
+            int answer = (randnum % 3) + 1;
+            do{
+                cout << answer << endl;
+                cout << "puntaje: " << playerscore << " a " << playscore << endl;
+                cout << "introduzca su jugada:\n1. Piedra\n2. Papel\n3. Tijera\n";
+                cin >> play;
+                if (play < 1 or play >3) {
+                    system("cls");
+                }
+            } while (play < 1 && play > 3);
+    
+            if (answer == play) {
+                cout << "empate\n";
+                system("pause");
+                system("cls");
+            }
+            else if (play == 1 && answer == 2) {
+                cout << "piedra vs papel\nperdiste\n";
+                playscore++;
+                cout << playerscore << " a " << playscore << endl;
+                system("pause");
+                system("cls");
+            }
+            else if (play == 1 && answer == 3) {
+                cout << "piedra vs tijera\nganaste\n";
+                playerscore++;
+                cout << playerscore << " a " << playscore << endl;
+                system("pause");
+                system("cls");
+            }
+            else if (play == 2 && answer == 1) {
+                cout << "papel vs piedra\nganaste\n";
+                playerscore++;
+                cout << playerscore << " a " << playscore << endl;
+                system("pause");
+                system("cls");
+            }
+            else if (play == 2 && answer == 3) {
+                cout << "papel vs tijera\nperdiste\n";
+                playscore++;
+                cout << playerscore << " a " << playscore << endl;
+                system("pause");
+                system("cls");
+            }
+            else if (play == 3 && answer == 1) {
+                cout << "tijera vs piedra\nperdiste\n";
+                playscore++;
+                cout << playerscore << " a " << playscore << endl;
+                system("pause");
+                system("cls");
+            }
+            else if (play == 3 && answer == 2) {
+                cout << "tijera vs papel\nganaste\n";
+                playerscore++;
+                cout << playerscore << " a " << playscore << endl;
+                system("pause");
+                system("cls");
+            } 
+        } while (playscore < 2 && playerscore < 2);
+        cout << "fin de la partida\npuntaje final: " << playerscore << " a " << playscore << endl;
+        if (playerscore > playscore) {
+            cout << "ganaste :)" << endl;
+        }
+        else {
+            cout << "perdiste :(" << endl;
+        }
+        cout << "desea jugar otra vez? si/no\n";
+        cin >> jugar;
+        system("cls");
+    } while (jugar == "si");
 }
