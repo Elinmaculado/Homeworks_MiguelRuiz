@@ -1,9 +1,11 @@
 #include <iostream>
 #include <windows.h>
+#include <vector>
 using namespace std;
 
 void tarea1();
 void tarea2();
+void tarea3();
 
 int main()
 {
@@ -12,6 +14,7 @@ int main()
     cout << "elija la tarea a ver: " << endl;
     cout << "1. Tarea 1: ejercicios" << endl;
     cout << "2. Tarea 2: piedra, papel o tijera" << endl;
+    cout << "3. Juego de ahorcado" << endl;
 
     cin >> excercise;
     switch (excercise) {
@@ -23,6 +26,10 @@ int main()
         system("cls");
         tarea2();
         break;
+    case 3:
+        system("cls");
+        tarea3();
+
     }
 }
 
@@ -137,6 +144,7 @@ break;
     }
 }
 
+//Piedra papel o tijra
 void tarea2() {
     int playscore = 0;
     int playerscore = 0;
@@ -219,3 +227,117 @@ void tarea2() {
         system("cls");
     } while (jugar == "si");
 }
+
+//ahorcado
+void tarea3() {
+    int lifes = 5;
+    char answer;
+    string word = "ahorcado";
+    char l1 = '_';  //a1 y 6
+    char l2 = '_';  //h
+    char l3 = '_';  //o3 y 8
+    char l4 = '_';  //r
+    char l5 = '_';  //c
+    char l6 = '_';  //d
+    vector<char> fails(5);
+    cout << fails.size();
+    
+
+    do {
+        cout << "juego del ahorcado" << endl;
+        cout << "tienes " << lifes << " vidas" << endl;
+
+        
+
+        cout << l1 << l2 << l3 << l4 << l5 << l1 << l6 << l3 << endl;
+        cout << "letras incorrectas: ";
+        for (unsigned int i = 0; i < fails.size(); i++)
+        {
+            cout << fails[i];
+        }
+
+        cout << endl << "ingresa una letra para adivinar la palabra" << endl;
+
+        cin >> answer;
+
+        if (answer == 'a')
+        {
+            l1 = answer;
+            system("cls");
+        }
+        else if (answer == 'h')
+        {
+            l2 = answer;
+            system("cls");
+        }
+        else if (answer == 'o')
+        {
+            l3 = answer;
+            system("cls");
+        }
+        else if (answer == 'r') 
+        {
+            l4 = answer;
+            system("cls");
+        }
+        else if (answer == 'c')
+        {
+            l5 = answer;
+            system("cls");
+        }
+        else if (answer == 'd')
+        {
+            l6 = answer;
+            system("cls");
+        }
+        else 
+        {
+            lifes--;
+            fails.push_back(answer);
+
+            system("cls");
+        }
+    } while (lifes > 0 && (l1 != 'a' || l2 != 'h' || l3 != 'o' || l4 != 'r' || l5 != 'c' || l6 != 'd'));
+    if (lifes == 0) {
+        cout << "perdiste :(" << endl;
+        cout << "------" << endl
+            <<"|     |" << endl
+           << "      0" << endl
+            <<"     |||" << endl
+            <<"     | |";
+
+    }
+    else
+    {
+        cout << "ganaste! :)";
+    }
+}
+
+/*
+------
+|     |   
+
+
+------
+|     |
+      0
+
+
+------
+|     |
+      0
+      |
+
+
+------
+|     |
+      0
+     /|\
+
+
+------
+|     |
+      0
+     /|\
+     / \
+*/
