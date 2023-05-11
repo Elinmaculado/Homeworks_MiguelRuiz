@@ -410,8 +410,13 @@ void tarea3_5()
 
         //Recibe la letra y la hace mayusucula
         cin >> guess;
+        while ( guess == '0' || guess == '1' || guess == '2' || guess == '3' || guess == '4' || guess == '5' || guess == '6' || guess == '7' || guess == '8' || guess == '9') 
+        {
+            cout << "no puede ingresar un numero, ingrese una letra: " << endl;
+            cin >> guess;
+        }
         guess = toupper(guess);
-    
+        
         //busca la letra en el vector, npos esta despues de la ultima posicion, si llega  a npos la letra no esta en el vector
         if (wordSelected.find(guess) != string::npos) 
         {
@@ -423,11 +428,14 @@ void tarea3_5()
                 }
             }
         }
+
         else if (failedLetters.find(guess) == string::npos)
         {
             attempts++;
             failedLetters.push_back(guess);
+            guess = ' ';
         }
+        
         system("cls");
     } while (attempts < MAX_ATTEMPTS && soFar != wordSelected);
 
