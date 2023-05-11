@@ -1,11 +1,14 @@
 #include <iostream>
 #include <windows.h>
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
 void tarea1();
 void tarea2();
 void tarea3();
+void tarea3_5();
 
 int main()
 {
@@ -28,7 +31,7 @@ int main()
         break;
     case 3:
         system("cls");
-        tarea3();
+        tarea3_5();
 
     }
 }
@@ -144,9 +147,8 @@ break;
     }
 }
 
-//Piedra papel o tijra
 void tarea2() {
-    int playscore = 0;
+     int playscore = 0;
     int playerscore = 0;
     int play;
     string jugar;
@@ -228,7 +230,6 @@ void tarea2() {
     } while (jugar == "si");
 }
 
-//ahorcado
 void tarea3() {
     int lifes = 5;
     char answer;
@@ -255,7 +256,32 @@ void tarea3() {
         {
             cout << fails[i];
         }
-
+        if (lifes == 4) 
+        {
+            cout << "------"<<endl;
+                cout << "|     |"<<endl;
+        }
+        else if (lifes == 3)
+        {
+            cout << "------" << endl;
+            cout << "|     |" << endl;
+            cout << "      0" << endl;
+        }
+        if (lifes == 2)
+        {
+            cout << "------" << endl;
+            cout << "|     |" << endl;
+            cout << "      0" << endl;
+            cout << "      |" << endl;
+        }
+        else if (lifes == 1)
+        {
+            cout << "------" << endl;
+            cout << "|     |" << endl;
+            cout << "      0" << endl;
+            cout << "     |||" << endl;
+        }
+        
         cout << endl << "ingresa una letra para adivinar la palabra" << endl;
 
         cin >> answer;
@@ -313,31 +339,109 @@ void tarea3() {
     }
 }
 
-/*
-------
-|     |   
+void tarea3_5()
+{
+    const int MAX_ATTEMPTS = 6;
+    int attempts = 0;
+    vector<string> words;
+    char guess;
+    vector<char>::const_iterator iter;
+
+    //palabras dentro del vector
+    words.push_back("COMPUTADORA");
+    words.push_back("JUEGO");
+    words.push_back("CODIGO");
+    words.push_back("REFRIGERADOR");
+
+    //indice con numero aleatorio para elegir palabra aleatoria
+    srand(time(NULL));
+    int randNumber = rand();
+    int wordRandomIndex = (randNumber % words.size());
+    string wordSelected = words[wordRandomIndex];
+    string failedLetters = " ";
+
+    //vector del tamaño de la palabra elegia, pero lleno de _ y donde se iran reemplazando las letras
+    int a = wordSelected.length();
+    string soFar(a, '_');
 
 
-------
-|     |
-      0
+    do {
+        cout << "te quedan " << MAX_ATTEMPTS - attempts << " intentos" << endl;
+        cout << "letras ya utilizadas: " << failedLetters << endl;
+        cout << wordSelected << endl;
+        cout << soFar << endl;
+
+        switch (attempts)
+        {
+        case 0:
+            cout << "------" << endl;
+            cout << "|     |" << endl;
+            break;
+        case 1:
+            cout << "------" << endl;
+            cout << "|     |" << endl;
+            cout << "      0" << endl;
+            break;
+        case 2:
+            cout << "------" << endl
+            << "|     |" << endl
+            << "      0" << endl
+            << "      |" << endl;
+            break;
+        case 3:
+            cout << "------" << endl
+                << "|     |" << endl
+                << "      0" << endl
+                << "      ||" << endl;
+            break;
+        case 4:
+            cout << "------" << endl
+                << "|     |" << endl
+                << "      0" << endl
+                << "     |||" << endl;
+            break;
+        case 5:
+            cout << "------" << endl
+                << "|     |" << endl
+                << "      0" << endl
+                << "     |||" << endl
+                << "     |  " << endl;
+        }
+
+        //Recibe la letra y la hace mayusucula
+        cin >> guess;
+        guess = toupper(guess);
+    
+        //busca la letra en el vector, npos esta despues de la ultima posicion, si llega  a npos la letra no esta en el vector
+        if (wordSelected.find(guess) != string::npos) 
+        {
+            for (int i = 0; i < wordSelected.length(); i++)
+            {
+                if (guess == wordSelected[i]) 
+                {
+                    soFar[i] = guess;
+                }
+            }
+        }
+        else if (failedLetters.find(guess) == string::npos)
+        {
+            attempts++;
+            failedLetters.push_back(guess);
+        }
+        system("cls");
+    } while (attempts < MAX_ATTEMPTS && soFar != wordSelected);
 
 
-------
-|     |
-      0
-      |
-
-
-------
-|     |
-      0
-     /|\
-
-
-------
-|     |
-      0
-     /|\
-     / \
-*/
+    if (attempts != MAX_ATTEMPTS) {
+        cout << "Felicidades crack, ganaste";
+    }
+    else
+    {
+        cout << "Perdiste, pongase vergas mijo" << endl;
+        cout << "------" << endl
+            << "|     |" << endl
+            << "      0" << endl
+            << "     |||" << endl
+            << "     | |" << endl;
+    }
+}
